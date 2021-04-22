@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +16,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
+        'email', 
+        'username', 
         'password',
+        'first_name', 
+        'last_name', 
+        'city',
+        'age',
     ];
 
     /**
@@ -28,8 +31,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password', 'remember_token',
     ];
 
     /**
@@ -40,4 +42,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getName(){
+        if($this->first_name && $this->last_name){
+            return "{$this->first_name} {$this->last_name}";
+        }
+
+        if($this->first_name){
+            return $this->first_name;
+        }
+
+        return null;
+    }
+
+    public function getNameOrUsername(){
+        return $this->getname() ? : $this->username;
+    }
+
+    public function getFirstNameOrUsername(){
+        return $this->first_name ? : $this->username;
+    }
 }

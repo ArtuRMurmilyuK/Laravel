@@ -11,9 +11,10 @@
 |
 */
 
-
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/alert', function ()
-{
-    return redirect()->route('home')->with('info', 'Вы можете войти!');
-});
+
+Route::get('/signup', 'AuthController@getSignup')->name('auth.signup');
+Route::post('/signup', 'AuthController@postSignup');
+
+Route::get('/signin', 'AuthController@getSignin')->name('auth.signin');
+Route::post('/signin', 'AuthController@postSignin');
