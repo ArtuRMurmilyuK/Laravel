@@ -13,8 +13,19 @@
 
 Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/signup', 'AuthController@getSignup')->name('auth.signup');
-Route::post('/signup', 'AuthController@postSignup');
+Route::get('/signup', 'AuthController@getSignup')->middleware('guest')->name('auth.signup');
+Route::post('/signup', 'AuthController@postSignup')->middleware('guest');
 
-Route::get('/signin', 'AuthController@getSignin')->name('auth.signin');
-Route::post('/signin', 'AuthController@postSignin');
+Route::get('/signin', 'AuthController@getSignin')->middleware('guest')->name('auth.signin');
+Route::post('/signin', 'AuthController@postSignin')->middleware('guest');
+
+Route::get('/signout', 'AuthController@getSignout')->name('auth.signout');
+
+Route::get('/search', 'SearchController@getResults')->name('search.results');
+
+Route::get('/user/{username}', 'ProfileController@getProfile')->name('profile.index');
+
+Route::get('/profile/edit', 'ProfileController@getEdit')->middleware('auth')->name('profile.edit');
+Route::post('/profile/edit', 'ProfileController@postEdit')->middleware('auth')->name('profile.edit');
+
+Route::get('/friends', 'FriendController@getIndex')->middleware('auth')->name('friend.index');
