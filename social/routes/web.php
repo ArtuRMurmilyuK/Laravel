@@ -29,3 +29,9 @@ Route::get('/profile/edit', 'ProfileController@getEdit')->middleware('auth')->na
 Route::post('/profile/edit', 'ProfileController@postEdit')->middleware('auth')->name('profile.edit');
 
 Route::get('/friends', 'FriendController@getIndex')->middleware('auth')->name('friend.index');
+Route::get('/friends/add/{username}', 'FriendController@getAdd')->middleware('auth')->name('friend.add');
+Route::get('/friends/accept/{username}', 'FriendController@getAccept')->middleware('auth')->name('friend.accept');
+Route::post('/friends/delete/{username}', 'FriendController@postDelete')->middleware('auth')->name('friend.delete');
+
+Route::post('/status', 'StatusController@postStatus')->middleware('auth')->name('status.post');
+
