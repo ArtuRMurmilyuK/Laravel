@@ -1,6 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
     <div class="container">
+        @if(Auth::check())
+        <a class="navbar-brand" href="{{ route('profile.index', ['username' =>Auth::user()->username]) }}">Dating Club "Cupid"</a>
+        @else
         <a class="navbar-brand" href="{{ route('home') }}">Dating Club "Cupid"</a>
+        @endif
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,7 +13,7 @@
              @if(Auth::check()) 
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Стена </a>
+                    <a class="nav-link" href="{{route('home')}}">Стена </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('friend.index')}}">Друзья</a>
