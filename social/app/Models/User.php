@@ -130,4 +130,24 @@ class User extends Authenticatable
         ->where('user_id', $this->id)
         ->count();
     }
+
+    public function getAvatarsPath($user_id){
+        $path = "uploads/avatars/id{$user_id}";
+
+        if (! file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        return "/$path/";
+    }
+
+    public function clearAvatars($user_id){
+        $path = "uploads/avatars/id{$user_id}";
+
+        if (file_exists(public_path("/$path"))) {
+            foreach (glob(public_path("/$path/*")) as $avatar) {
+                unlink($avatar);
+            }
+        }
+    }
 }

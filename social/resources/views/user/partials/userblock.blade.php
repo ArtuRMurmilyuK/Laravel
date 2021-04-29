@@ -1,13 +1,28 @@
 <div class="media mb-2">
-    <a href="{{route('profile.index', ['username' => $user->username]) }}"><img src="{{ $user->getAvatarUrl() }}" class="mr-3" alt="{{$user->getNameOrUsername()}}"></a>
+    <a href="{{route('profile.index', ['username' => $user->username]) }}">
+    @if(! $user->avatar)
+        <img src="{{ $user->getAvatarUrl() }}" 
+        class=" avatar img-thumbnail rounded-circle mr-3" 
+        alt="{{$user->getNameOrUsername()}}">
+    @else
+    <img src="{{ $user->getAvatarsPath($user->id) . $user->avatar }}" 
+        class="avatar img-thumbnail rounded-circle mr-3" 
+        alt="{{$user->getNameOrUsername()}}">
+    @endif
+    </a>
+
     <div class="media-body">
         <h5 class="mt-0">
-            <a href="{{route('profile.index', ['username' =>$user->username])}}">{{$user->getNameOrUsername()}}</a>
-
+            <a href="{{route('profile.index', ['username' =>$user->username])}}">
+            {{$user->getNameOrUsername()}}
+            </a>
         </h5>
 
         @if($user->city)
             <p>{{$user->city}}</p>
+        @endif
+        @if($user->age)
+            <p>{{$user->age}} года</p>
         @endif
     </div>
 </div>

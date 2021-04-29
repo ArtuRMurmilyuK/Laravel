@@ -27,9 +27,12 @@
         @else
         @foreach($statuses as $status)
         <div class="media">
-            <a class="mr-3" href="{{route('profile.index', ['username' =>$status->user->username])}}">
-                <img class="media-object rounded" src="{{$status->user->getAvatarurl()}}" alt="{{ $status->user->getNameOrUsername()}}">
-            </a>
+            
+        <a class="mr-3" href="{{route('profile.index', ['username' =>$status->user->username])}}">
+           
+        @include('user.partials.avatar')
+            
+    </a>
             <div class="media-body">
                 <h4>
                     <a href="{{route('profile.index', ['username' =>$status->user->username])}}">{{ $status->user->getNameOrUsername()}}</a>

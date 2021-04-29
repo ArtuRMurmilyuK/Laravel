@@ -6,13 +6,25 @@
         @include('user.partials.userblock')
         <hr>
 
+        @if(Auth::user()->id === $user->id)
+        <form action="{{route('upload-avatar', ['username' => Auth::user()->username])}}" class="my-4" enctype="multipart/form-data" method="POST">
+            
+            @csrf
+            <label for="avatar">Загрузить аватар</label><br>
+            <input type="file" name="avatar" id="avatar">
+            <input type="submit" class="btn btn-primary" value="Загрузить">
+        </form>
+        @endif
+
         @if(! $statuses->count())
         <p>{{$user->getFirstNameOrUsername()}} пока ничего не опубликовал</p>
         @else
         @foreach($statuses as $status)
         <div class="media">
             <a class="mr-3" href="{{route('profile.index', ['username' =>$status->user->username])}}">
-                <img class="media-object rounded" src="{{$status->user->getAvatarurl()}}" alt="{{ $status->user->getNameOrUsername()}}">
+                
+            @include('user.partials.avatar')
+
             </a>
             <div class="media-body">
                 <h4>
