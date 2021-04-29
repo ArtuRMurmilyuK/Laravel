@@ -37,6 +37,17 @@
                 @endif
 
             </div>
+
+            <div class="form-group">
+                <div class="row col-md-7">
+                    <select name="gender" class="custom-select ">
+                        <option value="">Ваш пол</option>
+                        <option value="m" {{ old('gender') === 'm' ? 'selected' : '' }}>Мужчина</option>
+                        <option value="f" {{ old('gender') === 'f' ? 'selected' : '' }}>Женщина</option>
+                    </select>
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-primary">Создать аккаунт</button>
         </form>
     </div>

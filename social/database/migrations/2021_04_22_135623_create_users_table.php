@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('city')->nullable();
             $table->bigInteger('age')->nullable();
+            $table->string('gender');
             $table->string('remember_token')->nullable();
             $table->timestamps();
         });
