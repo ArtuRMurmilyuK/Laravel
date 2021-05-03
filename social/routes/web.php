@@ -43,3 +43,5 @@ Route::post('/status/{statusId}/reply', 'StatusController@postReply')->middlewar
 Route::get('status/{statusId}/like', 'StatusController@getLike')->middleware('auth')->name('status.like');
 
 Route::resource('events', 'EventController');
+
+Route::resource('users', 'UserController');
