@@ -12,6 +12,26 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
              @if(Auth::check()) 
             <ul class="navbar-nav mr-auto">
+                
+                
+                @if (\Auth::user()->admin)
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{route('home')}}">Стена </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{route('friend.index')}}">Друзья</a>
+                </li>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Admin Panel
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="{{route('events.index')}}">Мероприятия </a>
+                    <a class="dropdown-item" href="{{route('users.index')}}">Пользователи </a>
+                </div>
+            </div>
+                    
+                @else
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('home')}}">Стена </a>
                 </li>
@@ -21,9 +41,8 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{route('events.index')}}">Мероприятия </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{route('users.index')}}">Пользователи </a>
-                </li>
+                @endif
+                
                 <form method="GET" action="{{route('search.results')}}" class="form-inline my-2 ml-2 my-lg-0">
                     <input name="query" class="form-control mr-sm-2" type="search" placeholder="Что ищем?" aria-label="Search">
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Найти</button>
@@ -32,15 +51,18 @@
              @endif 
             <ul class="navbar-nav ml-auto">
             @if(Auth::check())
-            <li class="nav-item "> 
-                <a href="{{route('profile.index', ['username' => Auth::user()->username])}}" class="nav-link">{{ Auth::user()->getNameOrUsername()}}</a>
-            </li>
-            <li class="nav-item ">
-                <a href="{{ route('profile.edit') }}" class="nav-link">Обновить профиль</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{route('auth.signout')}}" class="nav-link">Выйти</a>
-            </li>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ Auth::user()->getFirstNameOrUsername()}}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+             
+                <a href="{{route('profile.index', ['username' => Auth::user()->username])}}" class="dropdown-item">{{ Auth::user()->getNameOrUsername()}}</a>
+                <a class="dropdown-item" href="{{ route('profile.edit') }}" >Обновить профиль</a>
+                <a href="{{route('auth.signout')}}" class="dropdown-item">Выйти</a>
+            
+        </div>
+    </div>
             @else
             <li class="nav-item ">
                 <a href="{{ route('auth.signup') }}" class="nav-link">Зарегистрироваться</a>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Event;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -150,5 +151,18 @@ class User extends Authenticatable
                 unlink($avatar);
             }
         }
+    }
+
+    public function hasParticionalEvent(Event $event){
+        return (bool) $event->particionals
+        ->where('particionalable_id', $event->id)
+        ->where('particionalable_type', get_class($event))
+        ->where('user_id', $this->id)
+        ->count();
+    }
+
+    public function particionales()
+    {
+        return $this->hasMany('App\Models\Particional', 'user_id');
     }
 }

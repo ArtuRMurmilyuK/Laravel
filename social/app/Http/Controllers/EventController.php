@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\Models\Particional;
+use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
@@ -43,13 +47,7 @@ class EventController extends Controller
             'price' => 'required|max:50',
         ]);
 
-        $event = new Event([
-            'title'=> $request -> get('title'),
-            'description'=> $request -> get('description'),
-            'price'=> $request -> get('price'),
-        ]);
-
-        $event->save();
+        $event = Event::find($id);
 
         return redirect('/events')->with('success', 'Мероприятие добавлено!');
     }
@@ -117,5 +115,34 @@ class EventController extends Controller
         $event->delete();
 
         return redirect('/events')->with('success', 'Мероприятие удаленно!');
+    }
+
+    public function getParticional($eventId){
+        $event = Event::find($eventId);
+
+        if(Auth::user()->hasParticionalEvent($event)){
+            return redirect()->back();
+        }
+
+        $event->particionals()->create(['user_id' => Auth::user()->id]);
+
+        return redirect()->back();
+    }
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Event  $events
+     * @return \Illuminate\Http\Response
+     */
+    public function entry($evenstId)
+    {
+        $events = Particional::find($evenstId);#1/2/33
+        $users = User::all();
+
+        
+        
+        return view('events.entry', ['events' => $events, 'users' => $users]);
     }
 }

@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('gender');
             $table->string('remember_token')->nullable();
             $table->timestamps();
+            $table->bigInteger('admin')->nullable();
         });
     }
 

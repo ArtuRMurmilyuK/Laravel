@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -94,7 +95,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('/users')->with('success', 'Пост успешно обновлен!');
+        return redirect('/users')->with('success', 'User успешно обновлен!');
     }
 
     /**
@@ -109,5 +110,15 @@ class UserController extends Controller
         $user->delete();
 
         return redirect('/users')->with('success', 'Пользователь удален!');
+    }
+
+    public function search(Request $request){
+        $s = $request->s;
+        $users = User::where(DB::raw("CONCAT (first_name, ' ', last_name)"),
+        'LIKE', "%{$s}%")
+        ->orWhere('username', 'LIKE', "%{$s}%")
+        ->get();
+
+        return view('users.index')->with('users', $users);
     }
 }

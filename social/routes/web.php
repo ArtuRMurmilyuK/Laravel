@@ -43,5 +43,9 @@ Route::post('/status/{statusId}/reply', 'StatusController@postReply')->middlewar
 Route::get('status/{statusId}/like', 'StatusController@getLike')->middleware('auth')->name('status.like');
 
 Route::resource('events', 'EventController');
+Route::get('events/{eventsId}/particional', 'EventController@getParticional')->middleware('auth')->name('event.particional');
+Route::get('events/{eventsId}/entry', 'EventController@entry')->middleware('auth')->name('events.entry');
 
-Route::resource('users', 'UserController');
+Route::resource('users', 'UserController')->middleware('admin');
+
+Route::get('/searchUser', 'UserController@search')->middleware('admin')->name('search');

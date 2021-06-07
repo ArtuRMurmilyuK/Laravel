@@ -10,6 +10,16 @@
     </div>
 @endif
 
+<div class="col-md-4">
+  <form action="{{route('search')}}" method="GET">
+    <div class="input-group">
+      <input type="text" name="s" class="form-control" id="s">
+      <span class="input-group-prepend">
+        <button type="submit" class="btn btn-primary">Поиск</button>
+      </span>
+    </div>
+  </form>
+</div>
 <table class="table table-striped">
     <thead>
       <tr>
@@ -26,8 +36,6 @@
     </thead>
     <tbody>
         @foreach ($users as $user)
-            
-        
       <tr>
         <th scope="row">{{$user->id}}</th>
         <td>{{$user->email}}</td>

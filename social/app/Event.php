@@ -10,6 +10,10 @@ class Event extends Model
         'title', 
         'description', 
         'price',
-        
     ];
+
+    #получить всех участников
+    public function particionals(){
+        return $this->morphMany('App\Models\Particional', 'particionalable');
+    }
 }
