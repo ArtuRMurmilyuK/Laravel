@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
         <label for="post-price">Цена</label>
-        <input type="text" value="{{old('price')}}" name="price" class="form-control" id="post-price" >
+        <input type="number" step="0.01" min="0" value="{{old('price')}}" name="price" class="form-control" id="post-price" >
       </div>
       <button type="submit" class="btn btn-success">Добавить пост</button>
   </form>

@@ -47,7 +47,13 @@ class EventController extends Controller
             'price' => 'required|max:50',
         ]);
 
-        $event = Event::find($id);
+        $event = new Event([
+            'title'=> $request -> get('title'),
+            'description'=> $request -> get('description'),
+            'price'=> $request -> get('price'),
+        ]);
+
+        $event->save();
 
         return redirect('/events')->with('success', 'Мероприятие добавлено!');
     }
@@ -139,9 +145,7 @@ class EventController extends Controller
     public function entry($evenstId)
     {
         $events = Particional::find($evenstId);#1/2/33
-        $users = User::all();
-
-        
+        $users = DB::table('getparticional')->where('mainid', '=' , $evenstId)->get();
         
         return view('events.entry', ['events' => $events, 'users' => $users]);
     }

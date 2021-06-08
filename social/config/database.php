@@ -93,6 +93,22 @@ return [
 
     ],
 
+    'pgsql_superuser' => [
+        'driver' =>'pgsql',
+        'url' => env('DATABASE_URL_SUPERUSER'),
+        'host' =>env('DATABASE_URL_SUPERUSER', '127.0.0.1'),
+        'port' =>env('DATABASE_URL_SUPERUSER', '5433'),
+        'database' =>env('DATABASE_URL_SUPERUSER', 'forge'),
+        'username' =>env('DATABASE_URL_SUPERUSER', 'forge'),
+        'password' =>env('DATABASE_URL_SUPERUSER', ''),
+        'charset' => 'utf8',
+        'prefix' => '',
+        'prefix_indexes' => true,
+        'schema' => 'public',
+        'sslmode' => 'prefer',
+    ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Migration Repository Table

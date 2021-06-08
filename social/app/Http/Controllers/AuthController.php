@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -26,6 +27,8 @@ class AuthController extends Controller
             'gender' => $request->input('gender'),
         ]);
 
+        
+
         return redirect()->route('home')->with('info', 'Вы успешно зарегистрировались!');
     }
 
@@ -42,6 +45,7 @@ class AuthController extends Controller
         if(!Auth::attempt($request->only(['email','password']), $request->has('remember') )){
             return redirect()->back()->with('info', 'Неправильный логин или пароль');
         }
+
 
         return redirect()->route('home')->with('info', 'Вы успешно авторизованы.');
     }

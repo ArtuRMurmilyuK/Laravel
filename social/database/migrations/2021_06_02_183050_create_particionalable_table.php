@@ -19,6 +19,7 @@ class CreateParticionalableTable extends Migration
             $table->bigInteger('particionalable_id');
             $table->string('particionalable_type');
             $table->timestamps();
+            
         });
     }
 
